@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import FileUpload from './FileUpload';
+import BoundingBox from './BoundingBox';
 
-function App() {
+const App = () => {
+  const [uploadedFile, setUploadedFile] = useState(null);
+
+  const handleFileUpload = (file) => {
+    setUploadedFile(file);
+  };
+
+  const handleSaveChanges = () => {
+    alert('Changes saved successfully!');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <h1>File Upload and Editing</h1>
+      <FileUpload onFileUpload={handleFileUpload} />
+      {uploadedFile && (
+        <div>
+          <BoundingBox file={uploadedFile} />
+          <button onClick={handleSaveChanges}>Save Changes</button>
+        </div>
+      )}
+    </div> 
   );
-}
+};
 
 export default App;
